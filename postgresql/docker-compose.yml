@@ -1,5 +1,3 @@
-version: '3.8' # Specifies the Docker Compose file format version
-
 services:
   postgres: # Defines a service named 'postgres'
     image: postgres:16-alpine # Uses the official PostgreSQL image (version 16, alpine variant for smaller size)
