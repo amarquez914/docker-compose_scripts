@@ -1,0 +1,19 @@
+version: '3.8' # Specifies the Docker Compose file format version
+
+services:
+  postgres: # Defines a service named 'postgres'
+    image: postgres:16-alpine # Uses the official PostgreSQL image (version 16, alpine variant for smaller size)
+    # restart: always # Ensures the container restarts automatically if it stops
+    environment: # Sets environment variables for the PostgreSQL container
+      POSTGRES_DB: ${DB_NAME} # The name of the default database to create
+      POSTGRES_USER: ${DB_USER} # The username for the default database user
+      POSTGRES_PASSWORD: ${DB_PASSWORD} # The password for the default database user
+    ports:
+      - "5432:5432" # Maps host port 5432 to container port 5432
+      # - "${DB_PORT}:5432" # Can use an alternate host port to avoid conflict with host psql instance if one exists
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persists data in a named volume
+
+volumes:
+  postgres_data: # Defines the named volume for data persistence
+    driver: local

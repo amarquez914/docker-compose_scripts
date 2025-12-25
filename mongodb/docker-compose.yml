@@ -1,0 +1,20 @@
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:latest # Or a specific version like 'mongodb/mongodb-community-server:6.0'
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Maps host port 27017 to container port 27017
+    volumes:
+      - mongodb_data:/data/db # Persist data in a named volume
+      - 'mongodb_config:/data/configdb'
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: sa
+      MONGODB_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+    restart: unless-stopped # Automatically restart the container if it stops
+
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
